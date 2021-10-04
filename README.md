@@ -1,7 +1,7 @@
 # MazeEz
 server and client for my first-ever game!
 
-this usess pygmame + numpy for the client
+this usess pygmame for the client
 and numpy + firebase-admin for the server
 
 json key added to the server, I lost accsess to that firebase account.
