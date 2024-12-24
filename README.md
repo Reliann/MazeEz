@@ -11,6 +11,10 @@ Players can queue up and play!
 
 ![image](https://github.com/user-attachments/assets/68e624fc-d87c-4ed2-b6b5-61a221e3b822)
 
+![image](https://github.com/user-attachments/assets/356c2ca9-c7ce-4fa3-b7a9-cbf746bb4573)
+ ![image](https://github.com/user-attachments/assets/04ffc00d-1953-4dc0-824d-7f2717ee1e57)
+
+
 
 To run server:
   MazeEz-server/server.py
