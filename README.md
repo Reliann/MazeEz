@@ -5,6 +5,7 @@ The server uses sqlite3 local DB (Old version used firebase DB), builds a game r
 - Server made with socket and select (no other libraries).
 Players can queue up and play!
 
+![image](https://github.com/user-attachments/assets/68e624fc-d87c-4ed2-b6b5-61a221e3b822)
 
 
 To run server:
