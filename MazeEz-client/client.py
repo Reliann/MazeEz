@@ -6,7 +6,7 @@ import gui
 import game
 
 REQUEST_GAME = "019"
-SERVER_ADDRESS = ('127.0.0.1', 5030)
+SERVER_ADDRESS = ('127.0.0.1', 3000)
 REFUSE_TCP_CONNECTION = "002"
 RESPOND_CONNECTION = "001"
 REQUEST_LOGIN = "003"
@@ -206,3 +206,5 @@ class TcpClient(Thread):
 
     def send_invite_consent(self, name, consent):
         self.send_server(CONSENT_PARTY_INVITE, {'friend_name': name, 'consent': consent})
+
+

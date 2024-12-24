@@ -3,6 +3,7 @@ from GameSprites import *
 import gui
 import client
 import ctypes
+from os import path
 
 SW = 500
 SH = 500
@@ -16,7 +17,7 @@ class Game(object):
         self.fps_c = pygame.time.Clock()
         self.running = False
         self.screensize = 700, 450
-        self.floor = pygame.transform.scale(pygame.image.load(r"resources\grassfloor.jpg"), self.screensize)
+        self.floor = pygame.transform.scale(pygame.image.load(path.join("resources", "grassfloor.jpg")), self.screensize)
 
     def playgame(self):
         result = None
@@ -72,9 +73,9 @@ class Game(object):
         all_sprites.add(points)
 
 
-        self.screen.blit(pygame.transform.scale(pygame.image.load(r"resources\scores.png"), (150, 120)), (505, 10))
-        self.screen.blit(pygame.transform.scale(pygame.image.load(r"resources\redteam.png"), (140, 80)), (480, 110))
-        self.screen.blit(pygame.transform.scale(pygame.image.load(r"resources\blueteam.png"), (140, 80)), (480, 200))
+        self.screen.blit(pygame.transform.scale(pygame.image.load(path.join("resources", "scores.png")), (150, 120)), (505, 10))
+        self.screen.blit(pygame.transform.scale(pygame.image.load(path.join("resources", "redteam.png")), (140, 80)), (480, 110))
+        self.screen.blit(pygame.transform.scale(pygame.image.load(path.join("resources", "blueteam.png")), (140, 80)), (480, 200))
         redteam_scores = gui.RawText(650, 140, "0")
         blueteam_scores = gui.RawText(650, 230, "0")
 

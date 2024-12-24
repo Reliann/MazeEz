@@ -1,22 +1,17 @@
 # MazeEz
-server and client for my first-ever game!
+server and client for the first-ever multiplayer game I made back at 2018.
 
-json key added to the server, I lost accsess to that firebase account.
-And I'm not responsible for anything related to it. (I do not need it so I have no issue publishing it, it is very basic,
-no actual validation, it just contains the user's name, password and friend list)
+The server uses sqlite3 local DB (Old version used firebase DB), builds a game room with a unique maze for each party.
+- Server made with socket and select (no other libraries).
+Players can queue up and play!
 
-(I may make a local db option like sql lite for it to run locally in the future)
 
-you can change the "mykey.json" file to your own firebase account key. you will get the same effect.
 
-you will need some firebase database to run. (create firebase account and change 'mykey.json' to your key)
+To run server:
+  MazeEz-server/server.py
 
-server requirements:
-1. firebase-admin
-2. numpy
 
-client requirements:
-1.pygame
-
+To run client:
+  MazeEz-client/MazeEz.py
 
 resources from: https://opengameart.org/

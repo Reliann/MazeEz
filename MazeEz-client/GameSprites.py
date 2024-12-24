@@ -1,6 +1,6 @@
 import pygame
 import gui
-
+from os import path
 SCALE = (40, 34)
 
 WALL_HEIGHT = 50
@@ -20,14 +20,14 @@ class MovingSprite(pygame.sprite.Sprite):
         self.statechanged = False
         self.frames_dict = {'walk':     # TODO: blit name surface on images
             [
-                pygame.transform.scale(pygame.image.load(r"resources\kitty\frame_0.png"), SCALE).convert(),
-                pygame.transform.scale(pygame.image.load(r"resources\kitty\frame_1.png"), SCALE).convert(),
-                pygame.transform.scale(pygame.image.load(r"resources\kitty\frame_2.png"), SCALE).convert(),
-                pygame.transform.scale(pygame.image.load(r"resources\kitty\frame_3.png"), SCALE).convert(),
-                pygame.transform.scale(pygame.image.load(r"resources\kitty\frame_4.png"), SCALE).convert(),
-                pygame.transform.scale(pygame.image.load(r"resources\kitty\frame_5.png"), SCALE).convert(),
+                pygame.transform.scale(pygame.image.load(path.join("resources", "kitty", "frame_0.png")), SCALE).convert(),
+                pygame.transform.scale(pygame.image.load(path.join("resources", "kitty", "frame_1.png")), SCALE).convert(),
+                pygame.transform.scale(pygame.image.load(path.join("resources", "kitty", "frame_2.png")), SCALE).convert(),
+                pygame.transform.scale(pygame.image.load(path.join("resources", "kitty", "frame_3.png")), SCALE).convert(),
+                pygame.transform.scale(pygame.image.load(path.join("resources", "kitty", "frame_4.png")), SCALE).convert(),
+                pygame.transform.scale(pygame.image.load(path.join("resources", "kitty", "frame_5.png")), SCALE).convert(),
             ],
-            'idle': [pygame.transform.scale(pygame.image.load(r"resources\kitty\frame_4.png"), SCALE).convert()]
+            'idle': [pygame.transform.scale(pygame.image.load(path.join("resources", "kitty", "frame_4.png")), SCALE).convert()]
         }
         self.current_state = 'idle'
         self.image = pygame.transform.scale(self.frames_dict[self.current_state][0], SCALE)
@@ -139,7 +139,7 @@ class ControlledSprite(MovingSprite):
 class Point(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
-        self.image = pygame.transform.scale(pygame.image.load(r"resources\fish_point.png"), (20, 20))
+        self.image = pygame.transform.scale(pygame.image.load(path.join("resources", "fish_point.png")), (20, 20))
         self.rect = self.image.get_rect(center=(x+25, y+25))
         self.num = 2
 
@@ -154,7 +154,7 @@ class Point(pygame.sprite.Sprite):
 class Wall(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.transform.scale(pygame.image.load(r"resources\walltile.png").convert(), (WALL_WIDTH, WALL_HEIGHT))
+        self.image = pygame.transform.scale(pygame.image.load(path.join("resources", "walltile.png")).convert(), (WALL_WIDTH, WALL_HEIGHT))
         self.rect = self.image.get_rect(topleft=(x, y))
 
     #def move(self, direction):

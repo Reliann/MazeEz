@@ -4,19 +4,16 @@ import client
 import ctypes
 from game import Game
 from time import sleep
-
+from os import path
+import os
 
 pygame.init()
 pygame.font.init()
 
-user32 = ctypes.windll.user32
 
-LOGO = gui.MenuSprite(135, 60, pygame.image.load(r"resources\coollogo_com-9162951.png"), name="logo")
-BACKGROUND = pygame.image.load(r"resources\sprite_northWindShrineBG.png")
+LOGO = gui.MenuSprite(135, 60, pygame.image.load(path.join("resources", "coollogo_com-9162951.png")), name="logo")
+BACKGROUND = pygame.image.load(path.join("resources", "sprite_northWindShrineBG.png"))
 
-
-WIDTH_SCALE = user32.GetSystemMetrics(0)//1280
-HEIGHT_SCALE = user32.GetSystemMetrics(1)//720
 
 CANCEL_BUTTON = gui.Button(text="Leave Queue", x=400, y=400, width=100, height=45, name="cancel")
 UNREADY_BUTTON = gui.Button(text="Unready", x=400, y=400, width=100, height=45, name="cancel")
@@ -47,10 +44,10 @@ LABELS_FOR_MAIN_MENU = buttons = [LOGO, gui.Button(text="Play", x=205, y=180, wi
                                   gui.Button(text="Log Out", x=20, y=10, width=100, height=40, name="StartUp"),
                                   ]
 
-VICTORY_LABELS = [LOGO, gui.MenuSprite(50, 175, pygame.image.load(r"resources\victoryimage.png")),
+VICTORY_LABELS = [LOGO, gui.MenuSprite(50, 175, pygame.image.load(path.join("resources", "victoryimage.png"))),
                   gui.Button(text="continue", x=400, y=400, width=100, height=40, name="MainMenu")]
-DEFEAT_LABELS = [LOGO, gui.MenuSprite(100, 200, pygame.image.load(r"resources\defeatimage.png"))
-                 ,gui.Button(text="continue", x=400, y=400, width=100, height=40, name="MainMenu")]
+DEFEAT_LABELS = [LOGO, gui.MenuSprite(100, 200, pygame.image.load(path.join("resources", "defeatimage.png"))),
+                 gui.Button(text="continue", x=400, y=400, width=100, height=40, name="MainMenu")]
 DRAW_LABELS = [LOGO,
                gui.Button(text="continue", x=400, y=400, width=100, height=40, name="MainMenu")]
 
@@ -65,16 +62,20 @@ LABELS_FOR_INVITE_MENU = [LOGO, gui.Button(text="Back", x=20, y=20, width=50, he
 
 def initialize():
     myclient = client.TcpClient()
-    message_box = ctypes.windll.user32.MessageBoxW
+    if os.name == 'nt':
+        message_box = ctypes.windll.user32.MessageBoxW
+    else:
+        def message_box(hwnd, text, caption, flags):
+            print(f"{caption}: {text}")
     if not myclient.ui_queue.empty():
         error = myclient.ui_queue.get()
         message_box(None, error, 'Error', 0)
         quit()
     screen = pygame.display.set_mode((500, 500))
-    logo = pygame.image.load(r"resources\kitty\frame_0.png").convert_alpha()
+    logo = pygame.image.load(path.join("resources", "kitty", "frame_0.png")).convert_alpha()
     logo = pygame.transform.scale(logo, (32, 32))
     pygame.display.set_icon(logo)
-    pygame.display.set_caption(r"MazeEz")
+    pygame.display.set_caption("MazeEz")
     pygame.key.set_repeat(50, 50)  # set repeat for menus.
     myclient.start()
     return screen, myclient, message_box
@@ -95,7 +96,7 @@ def main():
     # loading_images = []
     # for i in range(5):
     #     loading_images.append(pygame.transform.scale
-    #                           (pygame.image.load(r"resources\loading\my loading " + str(i) + ".png"), (200, 40)))
+    #                           (pygame.image.load(path.join("resources", "loading", "my loading " + str(i) + ".png")), (200, 40)))
 
     mygame = Game(client)
     m = None
@@ -246,13 +247,13 @@ def main():
 def create_friends_labels(friend_list):
     labels = [LOGO, gui.Button(text="Back", x=20, y=20, width=50, height=30, name='Back')]
     y = 200
-    for key in friend_list:
-        l = gui.Label(50, y, height=30, text=key, name=key)
+    for friend in friend_list:
+        l = gui.Label(50, y, height=30, text=friend["username"], name=friend["username"])
         labels.append(l)
-        if friend_list[key]:
-            labels.append(gui.Button(l.rect.topright[0], y, 40,30, text="invite", name="Invite" + key))
+        if friend["username"]:
+            labels.append(gui.Button(l.rect.topright[0], y, 40,30, text="invite", name="Invite" + friend["username"]))
         else:
-            labels.append(gui.BinariButton(l.rect.topright[0], y, 30, 30, name=key))
+            labels.append(gui.BinariButton(l.rect.topright[0], y, 30, 30, name=friend["username"]))
         y = y + 50
 
     return labels
